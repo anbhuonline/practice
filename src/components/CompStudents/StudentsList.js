@@ -50,7 +50,7 @@ export default class StudentsList extends Component {
         <hr />
         <h3 className="title is-3">List of Students</h3>
         <div className="table-container">
-          <table className="table  is-striped is-narrow is-hoverable is-fullwidth">
+          <table className="table is-striped is-narrow is-hoverable is-fullwidth">
             <tbody>
               <tr>
                 <th>Name</th>
