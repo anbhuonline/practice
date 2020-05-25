@@ -8,27 +8,21 @@ import TeachersList from "./components/CompTeachers/TeachersList";
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        {/* <Sidebar /> */}
-        <menu>
-          <div>
-            <Link to="/">Home</Link>
-          </div>
-          <div>
-            <Link to="/students">Students</Link>
-          </div>
-          <div>
-            <Link to="/teachers">Teachers</Link>
-          </div>
-        </menu>
-        <Switch>
-          {/* <Route exact path="/" component={Main} /> */}
-          <Route path="/teachers" component={TeachersList} />
-          <Route path="/students" component={StudentsList} />
-          {/* <Route path="/teachers" component={Teachers} />
-          <Route path="/classes" component={Classes} /> */}
-        </Switch>
-      </div>
+      <menu>
+        <div>
+          <Link to="/">Home</Link>
+        </div>
+        <div>
+          <Link to="/students">Students</Link>
+        </div>
+        <div>
+          <Link to="/teachers">Teachers</Link>
+        </div>
+      </menu>
+      <Switch>
+        <Route path="/teachers" component={TeachersList} />
+        <Route path="/students" component={StudentsList} />
+      </Switch>
     </BrowserRouter>
   );
 }
