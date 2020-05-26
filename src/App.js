@@ -20,8 +20,8 @@ function App() {
         </div>
       </menu>
       <Switch>
-        <Route path="/teachers" component={TeachersList} />
         <Route path="/students" component={StudentsList} />
+        <Route path="/teachers" component={TeachersList} />
       </Switch>
     </BrowserRouter>
   );

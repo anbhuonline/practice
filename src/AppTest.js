@@ -11,8 +11,8 @@ function AppTest() {
     <BrowserRouter>
       <div className="container-fluid">
         <Navbar />
-        <div class="columns is-fullheight">
-          <div class="column is-2 is-sidebar-menu is-hidden-mobile">
+        <div className="columns is-fullheight">
+          <div className="column is-2 is-sidebar-menu is-hidden-mobile">
             <aside className="column">
               <p className="menu-label is-hidden-touch">Side Menu</p>
               <ul className="menu-list">
@@ -33,30 +33,7 @@ function AppTest() {
                 </li>
               </ul>
             </aside>
-            {/* <aside class="menu">
-              <p class="menu-label">Administration</p>
-              <ul class="menu-list">
-                <li>
-                  <a>Team Settings</a>
-                </li>
-                <li>
-                  <a class="is-active">Manage Your Team</a>
-                  <ul>
-                    <li>
-                      <a>Members</a>
-                    </li>
-                    <li>
-                      <a>Plugins</a>
-                    </li>
-                    <li>
-                      <a>Add a member</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </aside> */}
           </div>
-
           <div className="container column is-10">
             <div className="section">
               <Switch>
@@ -66,15 +43,6 @@ function AppTest() {
               </Switch>
             </div>
           </div>
-          {/* <div>
-          <Link to="/">Home</Link>
-        </div>
-        <div>
-          <Link to="/students">Students</Link>
-        </div>
-        <div>
-          <Link to="/teachers">Teachers</Link>
-        </div> */}
         </div>
       </div>
     </BrowserRouter>
