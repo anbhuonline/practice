@@ -42,11 +42,7 @@ export default class StudentsList extends Component {
       <div>
         <hr />
         <h3 className="title is-3">List of Students</h3>
-        <AddStudent
-          onAddorEdit={this.onAddorEdit}
-          currentIndex={this.state.currentIndex}
-          list={this.state.list}
-        />
+
         <div className="table-container">
           <table className="table  is-striped is-narrow is-hoverable is-fullwidth">
             <tbody>
@@ -95,6 +91,11 @@ export default class StudentsList extends Component {
             </tbody>
           </table>
         </div>
+        <AddStudent
+          onAddorEdit={this.onAddorEdit}
+          currentIndex={this.state.currentIndex}
+          list={this.state.list}
+        />
       </div>
     );
   }
