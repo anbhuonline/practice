@@ -4,11 +4,11 @@ export default class Teachers extends Component {
   state = { ...this.returnStateObject() };
 
   returnStateObject() {
-    // console.log("returnStateObject" + this.props);
     if (this.props.currentIndex === -1)
       return {
         name: "",
         address: "",
+        // parent: "",
         phone: "",
         email: "",
       };
@@ -26,7 +26,6 @@ export default class Teachers extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log("submit fired");
     e.preventDefault();
     this.props.onAddorEdit(this.state);
   };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./AddStudent.css";
 
 const Modal = (props) => {
-  console.log(props);
+  console.log("props in modal" + props);
   return (
     <div
       className="modal-wrapper"

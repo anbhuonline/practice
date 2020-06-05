@@ -29,7 +29,6 @@ class AddStudent extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log("from submit" + this.state);
     e.preventDefault();
     this.props.onAddorEdit(this.state);
   };

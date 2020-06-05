@@ -7,49 +7,66 @@ export default class StudentsList extends Component {
   state = {
     currentIndex: -1,
     list: [],
-    id: uuidv4,
   };
 
   async componentDidMount() {
+    // Load async data.
     let studentsList = await API.get("/students");
+    // console.log(studentsList);
     this.setState({ list: studentsList.data });
+    // this.setState({ list: JSON.parse(studentsList.data.body) });
+    // console.log("a" + JSON.parse(studentsList.data.body));
+    // console.log(this.state.list);
+    // console.log(studentsList.data[0]);
   }
 
-  async returnList() {
-    console.log("Inside return list");
-    try {
-      let studentsList = await API.get("/students");
-      this.setState({ list: studentsList.data });
-    } catch (e) {
-      console.log("ERROR" + e);
-    }
-  }
+  // async returnList() {
+  //   console.log("API_URL", process.env.API_URL);
+  //   let studentsList = await API.get("/students");
+  //   // if (localStorage.getItem("students") == null)
+  //   //   localStorage.setItem("students", JSON.stringify([]));
+  //   // return JSON.parse(localStorage.getItem("students"));
+  //   return JSON.parse(studentsList);
+  // }
 
-  onAddorEdit = (props) => {
-    console.log("Inside add or edit function " + this.state.props);
-
-    // try {
-    //   data["id"] = uuidv4();
-    //   console.log(data);
-    //   API.post("/students/", data);
-    // } catch (e) {
-    //   console.log("Error while adding : " + e);
+  onAddorEdit = (data) => {
+    // var list = this.returnList();
+    // console.log("data" + data);
+    // if (this.state.currentIndex === -1) {
+    //   list.push(data);
+    // } else {
+    //   list[this.state.currentIndex] = data;
     // }
+    // localStorage.setItem("students", JSON.stringify(list));
+    // this.setState({ list, currentIndex: -1 });
+    data["id"] = uuidv4();
+    console.log(data);
+    // console.log(data);
+    API.post("/students/", data);
+    console.log(API.post("/students/", data));
   };
 
-  handleEdit = (props) => {
-    console.log("firing" + props);
+  handleEdit = (index) => {
+    // console.log("firing" + index);
+    // this.setState({
+    //   currentIndex: index,
+    // });
   };
 
-  async handleDelete(props) {
+  handleDelete = (index) => {
+    // list.splice(index, 1);
+    // localStorage.setItem("students", JSON.stringify(list));
+    // this.setState({ list, currentIndex: -1 });
+    // API.delete("/students/" + index);
+    // console.log(" inside handledelete: " + this.state.list);
+
     try {
-      const response = await API.delete("/students/" + props);
-      console.log("In Delete response" + response);
-      this.returnList();
+      const response = API.delete("/students/" + index);
+      console.log("response" + response);
     } catch (e) {
       console.log("ERROR" + e);
     }
-  }
+  };
   render() {
     return (
       <div>
@@ -80,7 +97,7 @@ export default class StudentsList extends Component {
                           <p className="control">
                             <button
                               className="button is-small is-left is-success is-outlined"
-                              onClick={() => this.handleEdit(item.id)}
+                              onClick={() => this.handleEdit(index)}
                             >
                               <span className="icon">
                                 <i className="fas fa-edit"></i>
@@ -90,10 +107,7 @@ export default class StudentsList extends Component {
                           <p className="control">
                             <button
                               className="button is-small is-left is-danger is-outlined"
-                              onClick={
-                                () => this.handleDelete(item.id)
-                                // this.handleDelete(index, this.state.list.id)
-                              }
+                              onClick={() => this.handleDelete(index)}
                             >
                               <span className="icon">
                                 <i className="fas fa-trash"></i>
