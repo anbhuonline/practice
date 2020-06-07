@@ -6,7 +6,6 @@ class Navbar extends Component {
   state = { show: false };
 
   render() {
-    // console.log(this.state.show);
     return (
       <div>
         <nav
@@ -15,9 +14,6 @@ class Navbar extends Component {
           aria-label="main navigation"
         >
           <div className="navbar-brand">
-            {/* <a className="navbar-item" href="https://bulma.io">
-              
-            </a> */}
             <Link className="navbar-item" to="/">
               <img
                 src="https://bulma.io/images/bulma-logo.png"
@@ -27,6 +23,7 @@ class Navbar extends Component {
             </Link>
             <a
               role="button"
+              x
               className="navbar-burger burger"
               aria-label="menu"
               aria-expanded="false"
@@ -53,9 +50,6 @@ class Navbar extends Component {
                   <Link className="navbar-item" to="/teachers">
                     Manage Teachers
                   </Link>
-                  {/* <Link className="navbar-item" to="/classes">
-                    Manage Classes
-                  </Link> */}
                   <div className="nested navbar-item dropdown">
                     <div className="dropdown-trigger">
                       <button
@@ -84,9 +78,6 @@ class Navbar extends Component {
                         <Link to="/thulir2" className="dropdown-item">
                           Thulir2
                         </Link>
-                        {/* <a href="#" className="dropdown-item is-active">
-                          Active dropdown item
-                        </a> */}
                         <Link to="/thulir3" className="dropdown-item">
                           Thulir3
                         </Link>

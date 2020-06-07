@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 export default function Login() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("mydata" + data);
   };
 
   return (

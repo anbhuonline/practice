@@ -17,10 +17,10 @@ export default class TeachersList extends Component {
     } catch (e) {
       console.log("ERROR" + e);
     }
+    console.log("this.state.list" + this.state.list);
   }
 
   async returnList() {
-    console.log("Inside return list");
     try {
       let teachersList = await API.get("/teachers");
       this.setState({ list: teachersList.data });
@@ -74,11 +74,6 @@ export default class TeachersList extends Component {
   render() {
     return (
       <div className="container is-fluid">
-        <Test
-          onAddorEdit={this.onAddorEdit}
-          currentIndex={this.state.currentIndex}
-          list={this.state.list}
-        />
         <hr />
         <h3 className="title is-3">List of Teachers</h3>
         <div className="table-container">
@@ -149,6 +144,11 @@ export default class TeachersList extends Component {
             </tbody>
           </table>
         </div>
+        <Test
+          onAddorEdit={this.onAddorEdit}
+          currentIndex={this.state.currentIndex}
+          list={this.state.list}
+        />
       </div>
     );
   }

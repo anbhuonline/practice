@@ -13,6 +13,7 @@ export default class StudentsList extends Component {
   async componentDidMount() {
     let studentsList = await API.get("/students");
     this.setState({ list: studentsList.data });
+    console.log(studentsList);
   }
 
   async returnList() {
@@ -51,6 +52,8 @@ export default class StudentsList extends Component {
     }
   }
   render() {
+    console.log("List value: " + this.state.list);
+    
     return (
       <div>
         <hr />
