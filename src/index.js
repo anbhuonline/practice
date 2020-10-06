@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import App from "./App";
-import AppTest from "./AppTest";
+import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-// import Sidebar from "./components/Sidebar";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppTest />
-    {/* <Sidebar /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

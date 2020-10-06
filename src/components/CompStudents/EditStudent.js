@@ -1,55 +1,69 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
-import { v4 as uuid } from "uuid";
-
-import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 
 
-const AddStudent = () => {
-    const { register, handleSubmit, errors, reset } = useForm();
-    const [state, setState] = React.useState({
-        sname: "",
-        saddress: "",
-        sparent: "",
-        sphone: "",
-        semail: ""
-    })
+const EditStudent = (props) => {
 
-    const { addUser } = useContext(GlobalContext);
-    const history = useHistory();
+  const { register, handleSubmit, errors, reset  } = useForm();
+  const { users, editUser } = useContext(GlobalContext);
+  console.log("props", props)
+  const [selectedUser, setSelectedUser] = useState({
+    id: '',
+    sname: '',
+    saddress: '',
+    sparent: '',
+    semail: '',
+    sphone: ''
+  })
+  const history = useHistory();
+  const currentUserId = props.match.params.id;
+  var path = history.location.pathname
+  // console.log(path.substr(path.lastIndexOf("\/n")))
+console.log("path",path)
+  
+var str = path;
+  var n = str.lastIndexOf("/")+1;
+  // alert(str.substr(n, str.length))
 
-    const onSubmit = data => {
-        const newUser = {
-            id: uuid(),
-            sname: data.sname,
-            saddress: data.saddress,
-            semail: data.semail,
-            sparent: data.sparent,
-            sphone: data.sphone,
-        }
-        addUser(newUser);
-        history.push("/students");
-    };
+  const userId = str.substr(n, str.length)
+  useEffect(() => {
+    console.log("userId",userId)
+    console.log("users",users)
+    
+    const selectedUser = users.find(user => user.id === userId);
+    console.log("selectedUser", selectedUser)
+    setSelectedUser(selectedUser);
+  }, [currentUserId, users])
 
+  // const onChange = (e) => {
+  //   setSelectedUser({ ...selectedUser, [e.target.sname]: e.target.value })
+  // }
 
-    // function handleChange(evt) {
-    //     const value = evt.target.value;
-    //     setState({
-    //         ...state,
-    //         [evt.target.name]: value
-    //     });
-    // }
+  const onSubmit = (data) => {
+    const newUser = {      
+      id:userId,
+      sname: data.sname,
+      saddress: data.saddress,
+      semail: data.semail,
+      sparent: data.sparent,
+      sphone: data.sphone,
+  }
+  editUser(newUser);
+  history.push("/students");
+  };
 
-    return (
-
-        <React.Fragment>
-            <Link to="/students">
-                <span className="icon is-small">
-                    <i className="fa fa-chevron-left"></i>
-                </span>
-                &nbsp;&nbsp;Back</Link>
-            <div className="panel-heading">
+  return (
+    <React.Fragment>
+      <Link to="/students">
+        <span className="icon is-small">
+          <i className="fa fa-chevron-left"></i>
+        </span>
+        &nbsp;&nbsp;Back</Link>
+      <br />
+      {/* <form onSubmit={onSubmit}>       */}
+        <div className="panel-heading">
                 Add Student
                 <div className="panel-block">
                     <div className="control">
@@ -58,7 +72,8 @@ const AddStudent = () => {
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="sname" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Name"
-                                        ref={register({ required: true })} />
+                                        // ref={register({ required: true })} 
+                                        defaultValue={selectedUser.sname}/>                                        
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-user"></i>
                                     </span>
@@ -69,7 +84,8 @@ const AddStudent = () => {
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="saddress" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Address"
-                                        ref={register({ required: true })} />
+                                        // ref={register({ required: true })} 
+                                        defaultValue={selectedUser.saddress}/>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-user"></i>
                                     </span>
@@ -80,7 +96,8 @@ const AddStudent = () => {
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="sparent" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Parent Name"
-                                        ref={register({ required: true })} />
+                                        // ref={register({ required: true })} 
+                                        defaultValue={selectedUser.sparent}/>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-user"></i>
                                     </span>
@@ -91,7 +108,8 @@ const AddStudent = () => {
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="sphone" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Contact number"
-                                        ref={register({ required: true })} />
+                                        // ref={register({ required: true })} 
+                                        defaultValue={selectedUser.sphone}/>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-phone"></i>
                                     </span>
@@ -103,7 +121,8 @@ const AddStudent = () => {
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="semail" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Email ID"
-                                        ref={register({ required: true })} />
+                                        // ref={register({ required: true })} 
+                                        defaultValue={selectedUser.semail}/>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-envelope"></i>
                                     </span>
@@ -121,8 +140,9 @@ const AddStudent = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
-    )
+      {/* </form> */}
+    </React.Fragment>
+  );
 }
 
-export default AddStudent
+export default EditStudent;

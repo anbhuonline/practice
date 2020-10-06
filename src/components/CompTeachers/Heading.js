@@ -1,0 +1,23 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Heading = () => {
+    return (
+        <>
+            <article className="panel is-link">
+                <p className="panel-heading">
+                    Teachers List&nbsp;&nbsp;
+                    <Link className="button is-warning is-small is-outline" to="/AddTeacher">
+                        <span className="icon is-small">
+                            <i className="fas fa-plus  
+                                        fa-sm has-text-link "></i>
+                        </span>
+                    </Link>
+                </p>
+            </article>
+
+        </>
+    )
+}
+
+export default Heading

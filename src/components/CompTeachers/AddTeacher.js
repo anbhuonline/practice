@@ -6,57 +6,46 @@ import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 
 
-const AddStudent = () => {
+const AddTeacher = () => {
     const { register, handleSubmit, errors, reset } = useForm();
     const [state, setState] = React.useState({
-        sname: "",
-        saddress: "",
-        sparent: "",
-        sphone: "",
-        semail: ""
+        tname: "",
+        taddress: "",
+        tphone: "",
+        temail: ""
     })
 
-    const { addUser } = useContext(GlobalContext);
+    const { addTeacher } = useContext(GlobalContext);
     const history = useHistory();
 
     const onSubmit = data => {
-        const newUser = {
+        const newTeacher = {
             id: uuid(),
-            sname: data.sname,
-            saddress: data.saddress,
-            semail: data.semail,
-            sparent: data.sparent,
-            sphone: data.sphone,
+            tname: data.tname,
+            taddress: data.taddress,
+            temail: data.temail,
+            tphone: data.tphone,
         }
-        addUser(newUser);
-        history.push("/students");
+        addTeacher(newTeacher);
+        history.push("/teachers");
     };
-
-
-    // function handleChange(evt) {
-    //     const value = evt.target.value;
-    //     setState({
-    //         ...state,
-    //         [evt.target.name]: value
-    //     });
-    // }
 
     return (
 
         <React.Fragment>
-            <Link to="/students">
+            <Link to="/teachers">
                 <span className="icon is-small">
                     <i className="fa fa-chevron-left"></i>
                 </span>
                 &nbsp;&nbsp;Back</Link>
-            <div className="panel-heading">
-                Add Student
+                <div className="panel-heading">
+                Add Teacher
                 <div className="panel-block">
                     <div className="control">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <input name="sname" ref={register} className="input is-rounded is-fullwidth" type="text"
+                                    <input name="tname" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Name"
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
@@ -67,7 +56,7 @@ const AddStudent = () => {
                             </div>
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <input name="saddress" ref={register} className="input is-rounded is-fullwidth" type="text"
+                                    <input name="taddress" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Address"
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
@@ -75,21 +64,10 @@ const AddStudent = () => {
                                     </span>
                                     {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
-                            </div>
+                            </div>                            
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <input name="sparent" ref={register} className="input is-rounded is-fullwidth" type="text"
-                                        placeholder="Parent Name"
-                                        ref={register({ required: true })} />
-                                    <span className="icon is-small is-left">
-                                        <i className="fas fa-user"></i>
-                                    </span>
-                                    {errors.exampleRequired && <span>This field is required</span>}
-                                </div>
-                            </div>
-                            <div className="field">
-                                <div className="control has-icons-left has-icons-right">
-                                    <input name="sphone" ref={register} className="input is-rounded is-fullwidth" type="text"
+                                    <input name="tphone" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Contact number"
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
@@ -101,7 +79,7 @@ const AddStudent = () => {
 
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <input name="semail" ref={register} className="input is-rounded is-fullwidth" type="text"
+                                    <input name="temail" ref={register} className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Email ID"
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
@@ -115,14 +93,14 @@ const AddStudent = () => {
                                     type="submit"
                                     className="button is-link is-rounded is-fullwidth"
                                 />
-                                <Link to="/students" className="button is-danger is-rounded is-fullwidth">Cancel</Link>
+                                <Link to="/teachers" className="button is-danger is-rounded is-fullwidth">Cancel</Link>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </React.Fragment> 
     )
 }
 
-export default AddStudent
+export default AddTeacher
