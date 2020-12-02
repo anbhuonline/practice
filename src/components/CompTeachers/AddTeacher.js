@@ -1,37 +1,42 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
 import { v4 as uuid } from "uuid";
-
+import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 
-
 const AddTeacher = () => {
-    const { register, handleSubmit, errors, reset } = useForm();
-    const [state, setState] = React.useState({
-        tname: "",
-        taddress: "",
-        tphone: "",
-        temail: ""
-    })
-
-    const { addTeacher } = useContext(GlobalContext);
+    const { register, handleSubmit, errors } = useForm();
+    const [selectedTOption, setSelectedTOption] = React.useState([]);
+    const { addTeacher, myclasses } = useContext(GlobalContext);
     const history = useHistory();
-
+    const classOptions = myclasses.map((c)=> {
+        return {label:c.name, value:c.id}
+    })
+    const handleChange=(selectedTOption)=>{    
+            
+    console.log("selectedTOption in handlechange AddTeacher", selectedTOption)
+    // console.log("selectedTOption[0] in handlechange AddTeacher", selectedTOption[0].label)
+       setSelectedTOption(selectedTOption)
+    }
+    
     const onSubmit = data => {
+        const classOptions = selectedTOption.map((c)=> {
+            return {label:c.label}
+        })
         const newTeacher = {
             id: uuid(),
             tname: data.tname,
             taddress: data.taddress,
             temail: data.temail,
             tphone: data.tphone,
-        }
+            tclass: classOptions           
+        }        
         addTeacher(newTeacher);
         history.push("/teachers");
     };
 
     return (
-
         <React.Fragment>
             <Link to="/teachers">
                 <span className="icon is-small">
@@ -88,6 +93,20 @@ const AddTeacher = () => {
                                 </div>
                                 {errors.exampleRequired && <span>This field is required</span>}
                             </div>
+
+                            <div className="field">
+                                <div className="control has-icons-left has-icons-right">                                    
+                                    <Select   
+                                        isMulti     
+                                        value={selectedTOption}                                        
+                                        onChange={handleChange}
+                                        options={classOptions}
+                                        ref={register({ required: true })}
+                                    />                                     
+                                </div>
+                                {errors.exampleRequired && <span>This field is required</span>}
+                            </div>
+
                             <div className="field is-grouped is-grouped-centered">
                                 <input
                                     type="submit"

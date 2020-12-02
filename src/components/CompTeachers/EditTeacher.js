@@ -13,7 +13,7 @@ const EditTeacher = (props) => {
     tname: '',
     taddress: '',
     temail: '',
-    tphone: ''
+    tphone: '',
   })
   const history = useHistory();
   const currentteacherId = props.match.params.id;
@@ -50,7 +50,7 @@ var str = path;
       <br />
          
         <div className="panel-heading">
-                Add Teacher
+                Edit Teacher
                 <div className="panel-block">
                     <div className="control">
                         <form onSubmit={handleSubmit(onSubmit)}>

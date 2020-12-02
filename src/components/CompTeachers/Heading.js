@@ -9,7 +9,7 @@ const Heading = () => {
                     Teachers List&nbsp;&nbsp;
                     <Link className="button is-warning is-small is-outline" to="/AddTeacher">
                         <span className="icon is-small">
-                            <i className="fas fa-plus  
+                            <i className="fas fa-user-plus  
                                         fa-sm has-text-link "></i>
                         </span>
                     </Link>

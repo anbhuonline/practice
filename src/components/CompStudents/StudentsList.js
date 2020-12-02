@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const StudentsList = () => {
   const { users, removeUser } = useContext(GlobalContext)
+  console.log("users from StudentsList",users)
   return (
     <div className="table-container">
       <table className="table  is-striped is-narrow is-hoverable is-fullwidth">
@@ -14,6 +15,7 @@ const StudentsList = () => {
             <th>Parent Name</th>
             <th>Phone Number</th>
             <th>Email Id</th>
+            <th>Classes</th>
             <th>Actions</th>
           </tr>
           {users.length > 0 ? (
@@ -25,6 +27,8 @@ const StudentsList = () => {
                   <td>{item.sparent}</td>
                   <td>{item.sphone}</td>
                   <td>{item.semail}</td>
+                  {/* <td>{item.sclass}</td> */}
+                  <td><span class="tag is-info is-light">{item.sclass}</span></td>
                   <td>
                     <div className="field is-grouped">
                       <p className="control">
@@ -52,7 +56,7 @@ const StudentsList = () => {
               )
             })
           ) : (
-              <span className="title is-3">No records!</span>
+              <div className="title is-3">No records!</div>
             )
           }
         </tbody>

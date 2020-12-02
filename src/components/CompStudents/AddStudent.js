@@ -1,48 +1,38 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
 import { v4 as uuid } from "uuid";
-
+import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 
 
 const AddStudent = () => {
-    const { register, handleSubmit, errors, reset } = useForm();
-    const [state, setState] = React.useState({
-        sname: "",
-        saddress: "",
-        sparent: "",
-        sphone: "",
-        semail: ""
-    })
-
-    const { addUser } = useContext(GlobalContext);
+    const { register, handleSubmit, errors } = useForm();
+    const [selectedOption, setSelectedOption] = React.useState();
+    const { addUser, myclasses} = useContext(GlobalContext);
     const history = useHistory();
-
-    const onSubmit = data => {
+    const classOptions = myclasses.map((c)=> {
+        return {label:c.name, value:c.id}
+    })
+    const handleChange=(selectedOption)=>{        
+       setSelectedOption(selectedOption)
+       console.log("selectedOption in handlechange from Addstudent")
+    }
+    const onSubmit = data => {        
+        console.log("selectedOption in onSubmit from Addstudent",selectedOption)
         const newUser = {
             id: uuid(),
             sname: data.sname,
             saddress: data.saddress,
             semail: data.semail,
             sparent: data.sparent,
-            sphone: data.sphone,
+            sphone: data.sphone, 
+            sclass: selectedOption.label
         }
         addUser(newUser);
         history.push("/students");
     };
-
-
-    // function handleChange(evt) {
-    //     const value = evt.target.value;
-    //     setState({
-    //         ...state,
-    //         [evt.target.name]: value
-    //     });
-    // }
-
     return (
-
         <React.Fragment>
             <Link to="/students">
                 <span className="icon is-small">
@@ -110,6 +100,18 @@ const AddStudent = () => {
                                 </div>
                                 {errors.exampleRequired && <span>This field is required</span>}
                             </div>
+                            <div className="field">
+                                <div className="control has-icons-left has-icons-right">                                    
+                                    <Select        
+                                        value={selectedOption}
+                                        onChange={handleChange}
+                                        options={classOptions}
+                                        ref={register({ required: true })}
+                                    />                                     
+                                </div>
+                                {errors.exampleRequired && <span>This field is required</span>}
+                            </div>
+
                             <div className="field is-grouped is-grouped-centered">
                                 <input
                                     type="submit"

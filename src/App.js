@@ -18,7 +18,10 @@ import TeachersList from "./components/CompTeachers/TeachersList";
 import AddTeacher from "./components/CompTeachers/AddTeacher";
 import EditTeacher  from "./components/CompTeachers/EditTeacher";
 
-import Thulir from "./components/CompClasses/Thulir";
+import TamilClasses from "./components/CompClasses/TamilClasses";
+import AddClass from "./components/CompClasses/AddClass";
+import EditClass from "./components/CompClasses/EditClass";
+
 import Thulir1 from "./components/CompClasses/Thulir1";
 import Thulir2 from "./components/CompClasses/Thulir2";
 import Thulir3 from "./components/CompClasses/Thulir3";
@@ -68,13 +71,16 @@ function AppTest() {
                   <Route path="/listteacher" component={TeachersList} />
                   <Route path="/editteacher" component={EditTeacher} />
 
+                  <Route path="/classes" component={TamilClasses} />
+                  <Route path="/addclass" component={AddClass} /> 
+                  <Route path="/editclass" component={EditClass} />
 
-                  <Route path="/classes" component={Thulir} />
                   <Route path="/thulir1" component={Thulir1} />
                   <Route path="/thulir2" component={Thulir2} />
                   <Route path="/thulir3" component={Thulir3} />
                   <Route path="/login" component={Login} />
                   <Route path="/register" component={Register} />
+                  
                 </Switch>
               </div>
             </div>

@@ -33,6 +33,7 @@ export default (state, action) => {
           })
         }
       case 'ADD_TEACHER':
+        console.log("ADD_TEACHER from AppReducer getting fired!")
         return {
           ...state,
           teachers: [action.payload, ...state.teachers]
@@ -50,7 +51,26 @@ export default (state, action) => {
           ...state,
           teachers: updateTeachers
         }
+      case 'REMOVE_CLASS':
+        return {
+          ...state,
+          classes: state.classes.filter(user => {
+            return user.id !== action.payload;
+          })
+        }
+        case 'EDIT_CLASS':
+        const updateClass = action.payload;
   
+        const updateClasses = state.classes.map(user => {
+          if (user.id === updateClass.id) {
+            return updateClass;
+          }
+          return user;
+        })
+        return {
+          ...state,
+          classes: updateTeachers
+        }
       default:
         return state;
     }
