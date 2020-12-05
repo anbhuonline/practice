@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-
+import Select from 'react-select';
 
 const EditTeacher = (props) => {
 
   const { register, handleSubmit, errors, reset  } = useForm();
-  const { teachers, editTeacher } = useContext(GlobalContext);
+  const [selectedOption, setselectedOption] = React.useState([]);
+  const { teachers, editTeacher, myclasses } = useContext(GlobalContext);
   const [selectedTeacher, setSelectedTeacher] = useState({
     id: '',
     tname: '',
@@ -15,6 +16,9 @@ const EditTeacher = (props) => {
     temail: '',
     tphone: '',
   })
+  const classOptions = myclasses.map((c)=> {
+    return {label:c.name, value:c.id}
+})
   const history = useHistory();
   const currentteacherId = props.match.params.id;
   var path = history.location.pathname
@@ -26,15 +30,24 @@ var str = path;
   useEffect(() => {
     const selectedTeacher = teachers.find(user => user.id === teacherId);
     setSelectedTeacher(selectedTeacher);
+    console.log("selectedTeacher from useEffect", selectedTeacher)
   }, [currentteacherId, teachers])
+
+    const handleChange = (selectedClass) => {
+        console.log("selectedClass in Edit Teacher handleChange method", selectedClass)
+        let tempVal = { ...selectedTeacher };
+        tempVal.tclass = selectedClass
+        setSelectedTeacher(tempVal)
+    }
 
   const onSubmit = (data) => {
     const newTeacher = {      
-        id:teacherId,
+        id:selectedTeacher.id,
         tname: data.tname,
         taddress: data.taddress,
         temail: data.temail,
         tphone: data.tphone,
+        tclass: selectedTeacher.tclass
     }
   editTeacher(newTeacher);
   history.push("/teachers");
@@ -77,7 +90,9 @@ var str = path;
                                     </span>
                                     {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
-                            </div>                            
+                            </div>
+
+                            
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
                                     <input name="tphone" ref={register} className="input is-rounded is-fullwidth" type="text"
@@ -103,6 +118,21 @@ var str = path;
                                 </div>
                                 {errors.exampleRequired && <span>This field is required</span>}
                             </div>
+
+                            <div className="field">
+                                <div className="control has-icons-left has-icons-right">                                    
+                                    <Select   
+                                        // defaultValue={[classOptions[0],classOptions[1]]}
+                                        isMulti     
+                                        value={selectedTeacher.tclass}                                        
+                                        onChange={handleChange}
+                                        options={classOptions}
+                                        ref={register({ required: true })}
+                                    />                                     
+                                </div>
+                                {errors.exampleRequired && <span>This field is required</span>}
+                            </div>
+
                             <div className="field is-grouped is-grouped-centered">
                                 <input
                                     type="submit"

@@ -14,9 +14,9 @@ const AddStudent = () => {
     const classOptions = myclasses.map((c)=> {
         return {label:c.name, value:c.id}
     })
-    const handleChange=(selectedOption)=>{        
+    const handleChange=(selectedOption)=>{
+        console.log("selectedOption in handlechange from Addstudent before changing value:", selectedOption)
        setSelectedOption(selectedOption)
-       console.log("selectedOption in handlechange from Addstudent")
     }
     const onSubmit = data => {        
         console.log("selectedOption in onSubmit from Addstudent",selectedOption)
@@ -27,7 +27,8 @@ const AddStudent = () => {
             semail: data.semail,
             sparent: data.sparent,
             sphone: data.sphone, 
-            sclass: selectedOption.label
+            // sclass: selectedOption.label
+            sclass:selectedOption
         }
         addUser(newUser);
         history.push("/students");

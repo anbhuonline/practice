@@ -3,8 +3,10 @@ import { GlobalContext } from '../../context/GlobalState'
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Select from 'react-select';
+import StudentsList from './StudentsList';
 
 const EditStudent = (props) => {
+    console.log("props received from studentlist", props)
   const { register, handleSubmit, errors, reset  } = useForm();
   const { users, editUser, myclasses } = useContext(GlobalContext);
   const [selectedOption, setSelectedOption] = React.useState([]);
@@ -15,20 +17,22 @@ const EditStudent = (props) => {
     sparent: '',
     semail: '',
     sphone: '',
-    sclass:[]
+    sclass:[{label:'', value:''}]
   })
-  const classOptions = myclasses.filter(stud => stud.name != selectedUser.sclass).map((c)=> {
-    //   console.log("c in classoptions", c)
+  const classOptions = myclasses.filter(stud => stud.name != selectedUser.sclass).map((c)=> {    
     return {label:c.name, value:c.id}
 })
-  const defaultClass = myclasses.filter(stud => stud.name === selectedUser.sclass).map((c)=> {
-    //   console.log("c in defaultClass", c)
-    return {label:c.name, value:c.id}
-})
+//   const defaultClass = myclasses.filter(stud => stud.name === selectedUser.sclass).map((c)=> {          
+//     return {label:c.name, value:c.id}
+// })
   
-  const handleChange=(selectedOption)=>{        
-    setSelectedOption(selectedOption)
- }
+  const handleChange=(selectedClass)=>{     
+    // setSelectedUser(selectedUser)        
+    console.log("selectedClass", selectedClass)
+    let tempVal = { ...selectedUser};
+    tempVal.sclass = selectedClass
+    setSelectedUser(tempVal)
+}
   const history = useHistory();
   const currentUserId = props.match.params.id;
   var path = history.location.pathname
@@ -39,34 +43,29 @@ const EditStudent = (props) => {
  
   useEffect(() => {
     const selectedUser = users.find(user => user.id === userId);
+    console.log("users from useeffect",users)
     setSelectedUser(selectedUser);
-    // console.log("selectedUser", selectedUser)
+    console.log("selectedUser from useeffect", selectedUser)
   }, [currentUserId, users])
 
-  const onSubmit = (data) => {      
-    //   console.log("selectedOption inside submit event", selectedOption)
-      console.log("data inside submit event", data)
-    const newUser = {      
-      id:userId,
-      sname: data.sname,
-      saddress: data.saddress,
-      semail: data.semail,
-      sparent: data.sparent,
-      sphone: data.sphone,
-      sclass: selectedOption.label
-  }
+    const onSubmit = (data) => {
+        //   console.log("selectedOption inside submit event", selectedOption)
+        console.log("data inside submit event", data)
+        const newUser = {
+            id: selectedUser.id,
+            sname: data.sname,
+            saddress: data.saddress,
+            semail: data.semail,
+            sparent: data.sparent,
+            sphone: data.sphone,
+            sclass: selectedUser.sclass
+        }
 
-  editUser(newUser);
-  console.log("newUser inside edituser function:", newUser)
-    history.push("/students");
-  };
-
-
-//   console.log("selectedOption", selectedOption)
-//   console.log("selectedUser", selectedUser)
-//   console.log("classoptions", classOptions)
-//   console.log("defaultClass", defaultClass)
-
+        console.log("newUser inside edituser function:", newUser)
+        editUser(newUser);
+        history.push("/students");
+    };
+// console.log("selectedUser",selectedUser)
   return (
     <React.Fragment>
       <Link to="/students">
@@ -144,20 +143,12 @@ const EditStudent = (props) => {
                           <div className="field">
                                 <div className="control has-icons-left has-icons-right">                                    
                                     <Select                                            
-                                        defaultValue = {classOptions[0]}
-                                        // defaultValue = {defaultClass[0]}
+                                        // defaultValue = {selectedUser.sclass}
+                                        value={selectedUser.sclass}
                                         onChange = {handleChange}
                                         options = {classOptions}
                                         ref = {register({ required: true })}
                                     />                                   
-                                    {/* <Select
-                                        defaultValue={[colourOptions[2], colourOptions[3]]}
-                                        isMulti
-                                        name="colors"
-                                        options={colourOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                    />   */}
                                 </div>
                                 {errors.exampleRequired && <span>This field is required</span>}
                             </div>                          

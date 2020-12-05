@@ -7,30 +7,25 @@ import { Link, useHistory } from 'react-router-dom';
 
 const AddTeacher = () => {
     const { register, handleSubmit, errors } = useForm();
-    const [selectedTOption, setSelectedTOption] = React.useState([]);
+    const [selectedOption, setSelectedOption] = React.useState();
     const { addTeacher, myclasses } = useContext(GlobalContext);
     const history = useHistory();
     const classOptions = myclasses.map((c)=> {
         return {label:c.name, value:c.id}
     })
-    const handleChange=(selectedTOption)=>{    
-            
-    console.log("selectedTOption in handlechange AddTeacher", selectedTOption)
-    // console.log("selectedTOption[0] in handlechange AddTeacher", selectedTOption[0].label)
-       setSelectedTOption(selectedTOption)
+    const handleChange=(selectedOption)=>{               
+        console.log("selectedOption in handlechange AddTeacher", selectedOption)
+       setSelectedOption(selectedOption)
     }
     
-    const onSubmit = data => {
-        const classOptions = selectedTOption.map((c)=> {
-            return {label:c.label}
-        })
+    const onSubmit = data => {        
         const newTeacher = {
             id: uuid(),
             tname: data.tname,
             taddress: data.taddress,
             temail: data.temail,
             tphone: data.tphone,
-            tclass: classOptions           
+            tclass: selectedOption           
         }        
         addTeacher(newTeacher);
         history.push("/teachers");
@@ -98,7 +93,7 @@ const AddTeacher = () => {
                                 <div className="control has-icons-left has-icons-right">                                    
                                     <Select   
                                         isMulti     
-                                        value={selectedTOption}                                        
+                                        value={selectedOption}                                        
                                         onChange={handleChange}
                                         options={classOptions}
                                         ref={register({ required: true })}

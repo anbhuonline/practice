@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
 import { Link } from "react-router-dom";
 
-const StudentsList = () => {
+const StudentsList = (props) => {
+  console.log("props from StudentsList", props)
   const { users, removeUser } = useContext(GlobalContext)
   console.log("users from StudentsList",users)
   return (
@@ -28,7 +29,7 @@ const StudentsList = () => {
                   <td>{item.sphone}</td>
                   <td>{item.semail}</td>
                   {/* <td>{item.sclass}</td> */}
-                  <td><span class="tag is-info is-light">{item.sclass}</span></td>
+                  <td><span class="tag is-info is-light">{item.sclass.label}</span></td>
                   <td>
                     <div className="field is-grouped">
                       <p className="control">
