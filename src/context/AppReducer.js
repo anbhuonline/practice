@@ -51,6 +51,12 @@ export default (state, action) => {
           ...state,
           teachers: updateTeachers
         }
+        case 'ADD_CLASS':
+        console.log("ADD_CLASS from AppReducer getting fired!")
+        return {
+          ...state,
+          myclasses: [action.payload, ...state.myclasses]
+        }
       case 'REMOVE_CLASS':
         return {
           ...state,

@@ -4,38 +4,22 @@ import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 import Select from 'react-select'
-// import makeAnimated from 'react-select/animated';
 
 const AddClass = () => {
-    const [val,setVal]=useState();
-    const { myclasses } = useContext(GlobalContext)
-    
-    // useEffect(() => {
-    //     myclasses.students.map((myval)=>{
-    //         alert(myval.name)
-    //     })
-    // },[]);         
-    console.log(val);
-    const customStyles = {
-        menu: (provided, state) => ({
-            ...provided,
-            color: state.selectProps.menuColor,
-            padding: 10,
-        })
-    }
-    
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-    ]
-    console.log("myclasses",myclasses)
-    console.log("Addoptions",options)
-
-
-    const { addClass } = useContext(GlobalContext);
     const { register, handleSubmit, errors } = useForm();
+    const [selectedOption, setSelectedOption] = React.useState();
+    const { addClass, myclasses} = useContext(GlobalContext);
     const history = useHistory();
+    const studOptions = myclasses.map((c)=> {
+        return {label:c.students, value:c.id}
+    })
+    const teachOptions = myclasses.map((c)=> {
+        return {label:c.teachers, value:c.id}
+    })
+    const handleChange=(selectedOption)=>{
+        console.log("selectedOption in handlechange from Addstudent before changing value:", selectedOption)
+       setSelectedOption(selectedOption)
+    }
     const onSubmit = data => {
         const newClass = {
             id: uuid(),
@@ -68,23 +52,20 @@ const AddClass = () => {
                                     </span>
                                     {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
-                            </div>
-
+                            </div>                            
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <label>Select Students</label>
-                                    <Select
-                                        defaultValue=""
+                                <label>Select Students</label>                                  
+                                    <Select        
+                                        value={selectedOption}
                                         isMulti
-                                        name="colors"
-                                        options={options}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        styles={customStyles}
-                                    />
-                                    {errors.exampleRequired && <span>This field is required</span>}
+                                        onChange={handleChange}
+                                        options={studOptions}
+                                        ref={register({ required: true })}
+                                    />                                     
                                 </div>
-
+                                {errors.exampleRequired && <span>This field is required</span>}
+                            </div>
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
                                     <label>Select Teachers</label>
@@ -92,15 +73,13 @@ const AddClass = () => {
                                         defaultValue=""
                                         isMulti
                                         name="colors"
-                                        options={options}
+                                        options={teachOptions}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
                                     />
+                                    {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
                             </div>
-                                {errors.exampleRequired && <span>This field is required</span>}
-                            </div>
-
                             <div className="field is-grouped is-grouped-centered">
                                 <input
                                     type="submit"
@@ -112,7 +91,6 @@ const AddClass = () => {
                     </div>
                 </div>
             </div>
-
         </React.Fragment>
     )
 }

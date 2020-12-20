@@ -92,7 +92,14 @@ export const GlobalProvider = ({ children }) => {
       payload: user
     })
   }
-
+  const addClass = (user) => {
+    console.log(user, "user from Globalstate getting fired!")
+    console.log("ADD_CLASS from Globalstate getting fired!")
+    dispatch({
+      type: 'ADD_CLASS',
+      payload: user
+    })
+  }
   const removeClass = (id) => {
     dispatch({
       type: 'REMOVE_CLASS',
@@ -118,6 +125,7 @@ export const GlobalProvider = ({ children }) => {
       addTeacher,
       editTeacher,
       myclasses: state.myclasses,
+      addClass,
       removeClass,
       editClass
     }}>

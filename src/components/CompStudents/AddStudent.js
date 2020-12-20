@@ -11,6 +11,7 @@ const AddStudent = () => {
     const [selectedOption, setSelectedOption] = React.useState();
     const { addUser, myclasses} = useContext(GlobalContext);
     const history = useHistory();
+    console.log("c in classoptions", myclasses)
     const classOptions = myclasses.map((c)=> {
         return {label:c.name, value:c.id}
     })

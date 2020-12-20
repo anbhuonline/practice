@@ -58,7 +58,10 @@ export default function Navbar() {
                 <Link className="navbar-item" to="/teachers">
                   Teachers
                 </Link>
-                <div className="nested navbar-item dropdown">
+                <Link className="navbar-item" to="/Classes">
+                  Classes
+                </Link>
+                {/* <div className="nested navbar-item dropdown">
                   <div className="dropdown-trigger">
                     <button
                       className="button"
@@ -84,7 +87,7 @@ export default function Navbar() {
                         </Link>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

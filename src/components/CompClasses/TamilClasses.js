@@ -9,14 +9,11 @@ import { Link } from 'react-router-dom';
 
 export default function TamilClasses() {
   const { myclasses, removeClass } = useContext(GlobalContext)
-  console.log("classes", myclasses)
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
-
+  // const options = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' }
+  // ]
   return (
     <>
       <article className="panel is-link">
