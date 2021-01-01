@@ -18,7 +18,8 @@ const AddTeacher = () => {
        setSelectedOption(selectedOption)
     }
     
-    const onSubmit = data => {        
+    const onSubmit = data => {  
+        console.log("data", data);
         const newTeacher = {
             id: uuid(),
             tname: data.tname,

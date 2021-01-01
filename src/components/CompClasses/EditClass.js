@@ -1,46 +1,71 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalState'
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 import Select from 'react-select'
 
 
 const EditClass = (props) => {
-
-    let [val, setVal] = useState();
-    const { myclasses, editClass, users } = useContext(GlobalContext)
-    const [selectedUser, setSelectedUser] = useState({
+    const { myclasses, editClass } = useContext(GlobalContext)
+    const [selectedClass, setSelectedClass] = useState({
         id: '',
         name: '',
         students: [],
         teachers: []
     })
+    const [selectedSOption, setSelectedSOption] = useState();
+
+    const [selectedTOption, setSelectedTOption] = useState();
+    
+    //Appends the students name and list out
+    const studOptions = myclasses.map(c=>c.students).flat().map(s=>({label:s, value:s}))
+    
+    //Appends the teachers name and list out
+    const teachOptions = myclasses.map(c=>c.teachers).flat().map(t=>({label: t, value: t}))
 
     const { register, handleSubmit, errors } = useForm();
+    
     const history = useHistory();
-    const currentUserId = props.match.params.id;
-    var path = history.location.pathname    
-    var n = path.lastIndexOf("/") + 1;
-    const userId = path.substr(n, path.length)
+    
+    const currentClassId = props.match.params.id;
+    
+    var path = history.location.pathname  
+    
+    var str = path;
+    
+    var n = str.lastIndexOf("/")+1;
 
-   
-    const selTeachers= [
-        { value: 'ramesh1', label: 'ramesh1' },
-        { value: 'suresh1', label: 'suresh1' },
-        { value: 'ashwin1', label: 'ashwin1' }
-    ]
+    const classId = str.substr(n, str.length)
 
-    const userOptions = users.map((u)=> {
-        return {label:u.sname, value:u.semail}
-    })
-    console.log("userOptions",userOptions,users)
+    useEffect(() => {
+        const selectedClass = myclasses.find(user => user.id === classId);
+        setSelectedClass(selectedClass);
+        console.log("SelectedClass from useEffect", selectedClass)
+    }, [currentClassId, myclasses])
+
+    const handleSChange = (selectedStudents) => {
+        console.log("selectedClass in Edit class handleSChange method", selectedStudents)
+        let tempVal = { ...selectedClass };
+        tempVal.students = selectedStudents
+        setSelectedClass(tempVal)
+    }
+    const handleTChange = (selectedTeachers) => {
+        console.log("selectedClass in Edit class handleTChange method", selectedTeachers)
+        let tempVal = {...selectedClass}
+        tempVal.teachers = selectedTeachers
+        setSelectedClass(tempVal)
+    }
     const onSubmit = data => {
+
+        console.log("data from onsubmit in editclass selectedClass", selectedClass)
+        console.log("data from onsubmit in editclass", data)
         const newClass = {
-            id: uuid(),
+            // id: uuid(),
+            id:selectedClass.id,
             name: data.name,
-            classstudents: data.classstudents,
-            classteachers: data.classteachers,
+            students: selectedClass.students,
+            teachers: selectedClass.teachers,
         }
         console.log("newClass", newClass)
         editClass(newClass);
@@ -67,7 +92,7 @@ const EditClass = (props) => {
                                         className="input is-fullwidth"
                                         type="text"
                                         placeholder="Name"
-                                        defaultValue={selectedUser.name}
+                                        defaultValue={selectedClass.name}
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-graduation-cap"></i>
@@ -79,31 +104,30 @@ const EditClass = (props) => {
                                 <div className="control has-icons-left has-icons-right">
                                     <label>Select Students</label>
                                     <Select
-                                        defaultValue=""
+                                        // defaultValue={[classOptions[0],classOptions[1]]}
                                         isMulti
-                                        name="colors"
-                                        options={userOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
+                                        value={selectedClass.students}
+                                        onChange={handleSChange}
+                                        options={studOptions}
+                                        ref={register({ required: true })}
                                     />
                                     {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
-                                <div className="field">
-                                    <div className="control has-icons-left has-icons-right">
-                                        <label>Select Teachers</label>
-                                        <Select
-                                            defaultValue=""
-                                            isMulti
-                                            name="colors"
-                                            options={selTeachers}
-                                            className="basic-multi-select"
-                                            classNamePrefix="select"
-                                        />
-                                    </div>
+                            </div>                            
+                            <div className="field">
+                                <div className="control has-icons-left has-icons-right">
+                                    <label>Select Teachers</label>
+                                    <Select
+                                        // defaultValue={[classOptions[0],classOptions[1]]}
+                                        isMulti
+                                        value={selectedClass.teachers}
+                                        onChange={handleTChange}
+                                        options={teachOptions}
+                                        ref={register({ required: true })}
+                                    />
+                                    {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
-                                {errors.exampleRequired && <span>This field is required</span>}
-                            </div>
-
+                            </div>                            
                             <div className="field is-grouped is-grouped-centered">
                                 <input
                                     type="submit"

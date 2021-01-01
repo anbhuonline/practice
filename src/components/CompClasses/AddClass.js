@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext } from 'react'
+import React, {useState, useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalState'
 import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
@@ -7,29 +7,40 @@ import Select from 'react-select'
 
 const AddClass = () => {
     const { register, handleSubmit, errors } = useForm();
-    const [selectedOption, setSelectedOption] = React.useState();
+    
+    const [selectedSOption, setSelectedSOption] = useState();
+
+    const [selectedTOption, setSelectedTOption] = useState();
+    
     const { addClass, myclasses} = useContext(GlobalContext);
+    
     const history = useHistory();
-    const studOptions = myclasses.map((c)=> {
-        return {label:c.students, value:c.id}
-    })
-    const teachOptions = myclasses.map((c)=> {
-        return {label:c.teachers, value:c.id}
-    })
-    const handleChange=(selectedOption)=>{
-        console.log("selectedOption in handlechange from Addstudent before changing value:", selectedOption)
-       setSelectedOption(selectedOption)
+
+    //Loads students name on select control
+    const studOptions = myclasses.map(c=>c.students).flat().map(s=>({label:s, value:s}))
+
+    //Loads teachers name on select control
+    const teachOptions = myclasses.map(temp=>temp.teachers).flat().map(t=>({label: t, value: t}))
+
+    const handleSChange=(selectedSOption)=>{
+       setSelectedSOption(selectedSOption)
     }
+
+    const handleTChange=(selectedTOption)=>{
+       setSelectedTOption(selectedTOption)
+    }
+    
     const onSubmit = data => {
         const newClass = {
             id: uuid(),
             name: data.name,
-            classstudents: data.classstudents,
-            classteachers: data.classteachers,
+            students: selectedSOption,
+            teachers: selectedTOption,
         }
         addClass(newClass);
         history.push("/classes");
     };
+    
     return (
         <React.Fragment>
             <Link to="/classes">
@@ -44,7 +55,7 @@ const AddClass = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
-                                    <input name="name" ref={register} className="input is-rounded is-fullwidth" type="text"
+                                    <input name="name" className="input is-rounded is-fullwidth" type="text"
                                         placeholder="Name"
                                         ref={register({ required: true })} />
                                     <span className="icon is-small is-left">
@@ -57,9 +68,9 @@ const AddClass = () => {
                                 <div className="control has-icons-left has-icons-right">
                                 <label>Select Students</label>                                  
                                     <Select        
-                                        value={selectedOption}
                                         isMulti
-                                        onChange={handleChange}
+                                        value={selectedSOption}
+                                        onChange={handleSChange}
                                         options={studOptions}
                                         ref={register({ required: true })}
                                     />                                     
@@ -69,14 +80,13 @@ const AddClass = () => {
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
                                     <label>Select Teachers</label>
-                                    <Select
-                                        defaultValue=""
-                                        isMulti
-                                        name="colors"
+                                    <Select   
+                                        isMulti     
+                                        value={selectedTOption}                                        
+                                        onChange={handleTChange}
                                         options={teachOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                    />
+                                        ref={register({ required: true })}
+                                    />                                 
                                     {errors.exampleRequired && <span>This field is required</span>}
                                 </div>
                             </div>

@@ -5,15 +5,8 @@ import Thulir3 from "./Thulir3";
 import { GlobalContext } from '../../context/GlobalState';
 import { Link } from 'react-router-dom';
 
-
-
 export default function TamilClasses() {
   const { myclasses, removeClass } = useContext(GlobalContext)
-  // const options = [
-  //   { value: 'chocolate', label: 'Chocolate' },
-  //   { value: 'strawberry', label: 'Strawberry' },
-  //   { value: 'vanilla', label: 'Vanilla' }
-  // ]
   return (
     <>
       <article className="panel is-link">
