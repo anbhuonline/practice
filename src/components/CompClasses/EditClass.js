@@ -14,9 +14,6 @@ const EditClass = (props) => {
         students: [],
         teachers: []
     })
-    const [selectedSOption, setSelectedSOption] = useState();
-
-    const [selectedTOption, setSelectedTOption] = useState();
     
     //Appends the students name and list out
     const studOptions = myclasses.map(c=>c.students).flat().map(s=>({label:s, value:s}))
@@ -41,7 +38,7 @@ const EditClass = (props) => {
     useEffect(() => {
         const selectedClass = myclasses.find(user => user.id === classId);
         setSelectedClass(selectedClass);
-        console.log("SelectedClass from useEffect", selectedClass)
+        // console.log("SelectedClass from useEffect", selectedClass)
     }, [currentClassId, myclasses])
 
     const handleSChange = (selectedStudents) => {
@@ -55,11 +52,11 @@ const EditClass = (props) => {
         let tempVal = {...selectedClass}
         tempVal.teachers = selectedTeachers
         setSelectedClass(tempVal)
+        console.log("selectedClass in handleTChange",selectedClass)
     }
     const onSubmit = data => {
-
-        console.log("data from onsubmit in editclass selectedClass", selectedClass)
-        console.log("data from onsubmit in editclass", data)
+        // console.log("data from onsubmit in editclass selectedClass", selectedClass)
+        // console.log("data from onsubmit in editclass", data)
         const newClass = {
             // id: uuid(),
             id:selectedClass.id,

@@ -1,0 +1,9 @@
+Additional components used:
+//For date picker
+npm install --save react-multi-date-picker
+https://shahabyazdi.github.io/react-multi-date-picker/#npm
+
+//For select control
+npm install react-select
+https://react-select.com/home
+

@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 import Select from 'react-select'
+import "../CompClasses/AddClass.css";
 
 const AddClass = () => {
     const { register, handleSubmit, errors } = useForm();
@@ -67,7 +68,8 @@ const AddClass = () => {
                             <div className="field">
                                 <div className="control has-icons-left has-icons-right">
                                 <label>Select Students</label>                                  
-                                    <Select        
+                                    <Select 
+                                        className="selOptions"      
                                         isMulti
                                         value={selectedSOption}
                                         onChange={handleSChange}

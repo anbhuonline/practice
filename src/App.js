@@ -27,6 +27,7 @@ import Thulir2 from "./components/CompClasses/Thulir2";
 import Thulir3 from "./components/CompClasses/Thulir3";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import Attendance from "./components/CompClasses/Attendance";
 
 function AppTest() {
   return (
@@ -74,6 +75,7 @@ function AppTest() {
                   <Route path="/classes" component={TamilClasses} />
                   <Route path="/addclass" component={AddClass} /> 
                   <Route path="/editclass" component={EditClass} />
+                  <Route path="/attendance" component={Attendance} />
 
                   <Route path="/thulir1" component={Thulir1} />
                   <Route path="/thulir2" component={Thulir2} />

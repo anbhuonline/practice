@@ -1,0 +1,16 @@
+.nice-dates-navigation, .nice-dates-day {
+    color: rgb(96, 85, 250);
+  }
+  .nice-dates-day:before{
+      background: rgb(27, 186, 235);
+  }
+  .nice-dates-popover {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    max-width: 480px;
+    transition: none;
+  }
+  .styledate{
+    color: rgb(228, 66, 26);
+  }

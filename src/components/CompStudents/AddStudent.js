@@ -5,7 +5,6 @@ import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from 'react-router-dom';
 
-
 const AddStudent = () => {
     const { register, handleSubmit, errors } = useForm();
     const [selectedOption, setSelectedOption] = React.useState();
@@ -19,6 +18,7 @@ const AddStudent = () => {
         console.log("selectedOption in handlechange from Addstudent before changing value:", selectedOption)
        setSelectedOption(selectedOption)
     }
+
     const onSubmit = data => {        
         console.log("selectedOption in onSubmit from Addstudent",selectedOption)
         const newUser = {
@@ -103,8 +103,9 @@ const AddStudent = () => {
                                 {errors.exampleRequired && <span>This field is required</span>}
                             </div>
                             <div className="field">
-                                <div className="control has-icons-left has-icons-right">                                    
-                                    <Select        
+                                <div className="control has-icons-left has-icons-right is-rounded">                                    
+                                    <Select 
+                                        className="theme"
                                         value={selectedOption}
                                         onChange={handleChange}
                                         options={classOptions}

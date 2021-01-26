@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function TamilClasses() {
   const { myclasses, removeClass } = useContext(GlobalContext)
+  console.log("myclasses", myclasses);
   return (
     <>
       <article className="panel is-link">
@@ -33,8 +34,8 @@ export default function TamilClasses() {
               return (
                 <tr key={index}>
                   <td>{item.name}</td>
-                  <td>{item.students.length}</td>
-                  <td>{item.teachers.length}</td>
+                  <td>{item.students.length}&#160;</td>
+                  <td>{item.teachers.length}&#160;</td>
                   <td>
                     <div className="field is-grouped">
                       <p className="control">
@@ -54,6 +55,11 @@ export default function TamilClasses() {
                           </span>
                         </button>
                       </p>
+                      {/* <Link className="button is-small is-left is-info is-outlined" to={`/attendanceold/${item.id}`}> */}
+                      <Link className="button is-small is-left is-info is-outlined" to={`/attendance/${item.id}`}>
+                            <i className="fas fa-edit"></i>Attendance
+                        </Link>
+                        {/* <Link className="button is-info is-small is-rounded is-outlined" to={`/attendance/${item.id}'}>Attendance</Link> */}
                     </div>
                   </td>
                 </tr>
